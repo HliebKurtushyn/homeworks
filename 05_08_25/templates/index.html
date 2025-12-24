@@ -1,0 +1,10 @@
+<h1>File reader</h1>
+
+<form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="user_file" required>
+    <input type='submit' value="Send">
+</form>
+
+Content:
+<br>
+{{content}}
