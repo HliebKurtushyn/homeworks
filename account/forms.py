@@ -1,11 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from .models import User, StudentProfile
 
 
 class StudentRegistrationForm(UserCreationForm):
     email = forms.EmailField(
-        unique=True,
         required=True,
         label="Електронна пошта",
         widget=forms.EmailInput(attrs={
@@ -35,7 +34,8 @@ class StudentRegistrationForm(UserCreationForm):
     )
 
     age = forms.IntegerField(
-        max_length=3,
+        min_value=12,
+        max_value=18,
         required=True,
         label="Вік",
         widget=forms.NumberInput(attrs={
@@ -45,7 +45,6 @@ class StudentRegistrationForm(UserCreationForm):
     )
 
     phone = forms.CharField(
-        unique=True,
         max_length=15,        
         required=True,
         label="Телефон",
@@ -74,9 +73,19 @@ class StudentRegistrationForm(UserCreationForm):
         fields = ('email', 'phone', 'first_name', 'last_name', 'password1', 'password2')
 
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password1'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Введіть пароль'})
         self.fields['password2'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Підтвердіть пароль'})
 
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.age = self.cleaned_data['age']
+        user.phone = self.cleaned_data['phone']
+        if commit:
+            user.save()
+        return user
