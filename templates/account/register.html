@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    <title>Реєстрація</title>
+{% endblock %}
+
 {% block content %}
     <h2>Реєстрація студента</h2>
     <form method="post">
@@ -50,4 +54,6 @@
 
         <button type="submit">Зареєструватися</button>
     </form>
+
+    <p>Вже є акаунт? <a href="{% url 'login' %}">Ввійти</a></p>
 {% endblock content %}
