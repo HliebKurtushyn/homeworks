@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Ввійти</title>
+{% endblock %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>Email або пароль неправильні</p>
+    {% endif %}
+
+    <h2>Вхід</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div>
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <button type="submit">Ввійти</button>
+    </form>
+
+    <p>Ще не маєте акаунту? <a href="{% url 'register' %}">Зареєструватися</a></p>
+{% endblock %}
