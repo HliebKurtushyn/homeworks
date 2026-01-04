@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import User
 
 
@@ -9,7 +9,7 @@ class StudentRegistrationForm(UserCreationForm):
         label="Електронна пошта",
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
-            'placeholder': 'example@email.com'
+            'placeholder': 'example@email.com',
         })
     )
     
@@ -89,3 +89,7 @@ class StudentRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class StudentAuthForm(AuthenticationForm):
+    username = forms.EmailField(label="Email") # Зробив логін через email, тому що username в користувача не існує
