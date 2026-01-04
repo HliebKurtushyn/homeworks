@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,7 @@ STATIC_URL = 'static/'
 
 # Custom user model
 AUTH_USER_MODEL = 'account.User'
+
+
+# Login URL
+LOGIN_URL = 'login'
