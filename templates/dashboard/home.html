@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <title>Головна</title>
+{% endblock head %}
+
+{% block content %}
+    <h1>Вітаємо, {{ user.first_name }}</h1>
+    <h3>Твої курси:</h3>
+    <ul>
+        {% if courses %}
+            {% for course in courses %}
+                <li>{{ course.name }}</li>
+                <li>{{ course.description }}</li>
+                <img src="{% static course.image %}" alt="{{ course.name }}" style="width:300px; height:150px">
+                <br>
+                <br>
+            {% endfor %}
+        {% else %}
+            <p>Немає курсів! Зверніться до адміністратора.</p>
+        {% endif %}     
+    </ul>
+
+{% endblock %}
